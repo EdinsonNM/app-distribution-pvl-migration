@@ -181,8 +181,8 @@ module.exports = {
 			updatedAt:'dtFecUltMod'			
 		},
 		model: {
-			name: 'viatype',
-			plural: 'viatype',
+			name: 'ubigeo',
+			plural: 'ubigeo',
 			schema: {
 				code: String,
 				codeDep:String,
@@ -506,8 +506,8 @@ module.exports = {
 			codeId:'ID_COMITE'
 		},
 		model: {
-			name: 'committee',
-			plural: 'committee',
+			name: 'partner',
+			plural: 'partner',
 			schema: {
 				code: String,
 				name:String,
