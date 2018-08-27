@@ -17,6 +17,23 @@ module.exports = {
 			}
 		}
 	},
+	addresstype: {
+		query: `SELECT * FROM MaeTipVia`,
+		transform : {
+			code: 'iCodTipVia',
+			name: 'vDescTipVia',
+			active: 'iEstaReg'
+		},
+		model: {
+			name: 'addresstype',
+			plural: 'addresstype',
+			schema: {
+				code: String,
+				name: String,
+				active: Boolean
+			}
+		}
+	},
 	product: {
 		query: `SELECT * FROM MaeTipAlimento`,
 		transform : {
@@ -43,7 +60,8 @@ module.exports = {
 			urbancoreId: 'iTipNucUrbano',
 			urbancoreName: 'vNomNucUrbano',
 			populatedCenter: 'iCodCCPP',
-			populatedCenterName: 'vNomCCPP'
+			populatedCenterName: 'vNomCCPP',
+			addresstypeId: 'iCodTipVia',
 		},
 		model: {
 			name: 'committee',
@@ -54,11 +72,13 @@ module.exports = {
 				urbancoreId: {type: Schema.Types.ObjectId, ref: 'urbancore'},
 				urbancoreName: String,
 				populatedCenter: Number,
-				populatedCenterName: String
+				populatedCenterName: String,
+				addresstypeId: {type: Schema.Types.ObjectId, ref: 'addresstype'},
 			}
 		},
 		foreingKeys :{
-			urbancore: 'urbancoreId'
+			urbancore: 'urbancoreId',
+			addresstype: 'addresstypeId'
 		}
 	}
 };
