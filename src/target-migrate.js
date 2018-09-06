@@ -13,7 +13,11 @@ const transformForeingKeys = (data,name) => {
 				const key = sources[name].foreingKeys[foreing];
 				// console.log(DATA[foreing], item[key]);
 				if(newItem[key]){
-					foreingItem = global.DATA[foreing].find(ele => ele.code.toString() === newItem[key].toString());
+					let keySearch = 'code';
+					if(sources[name].foreingKeysId && sources[name].foreingKeysId[foreing]){
+						keySearch = sources[name].foreingKeysId[foreing];
+					}
+					foreingItem = global.DATA[foreing].find(ele => ele[keySearch].toString() === newItem[key].toString());
 					newItem[key] = foreingItem._id
 				}
 			})
@@ -45,7 +49,7 @@ const InsertAllCollection = async(name, Model, data) => {
 	});
 	let result = await Promise.all(promises).then(results => results);
 	global.DATA[name] = result;
-	console.log('DATA========>',global.DATA[name]);
+	console.log('DATA========>',name);
 	return result;
 }
 
