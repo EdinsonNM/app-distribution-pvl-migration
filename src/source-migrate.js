@@ -19,6 +19,7 @@ module.exports = async(dbName) => {
 	let promises = [];
 	Object.keys(sources).forEach(source => {
 		let sql = sources[source].query;
+		console.log(sql);
 		promises.push(migrateDB(db, sql));
 	})
 	let results = await Promise.all(promises).then(items => {

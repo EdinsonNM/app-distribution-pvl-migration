@@ -30,7 +30,7 @@ const transformForeingKeys = (data,name) => {
 
 const insert = (Model, name, item, index) => {
 	return new Promise((resolve, reject) => {
-		console.log(item);
+		// console.log(item);
 		Model.findOneAndUpdate({code: item.code}, item, {new: true, upsert:true, overwrite: true}, function(err, doc){
 			if(err) return reject(err)
 			// global.DATA[name][index] = doc;
@@ -49,7 +49,7 @@ const InsertAllCollection = async(name, Model, data) => {
 	});
 	let result = await Promise.all(promises).then(results => results);
 	global.DATA[name] = result;
-	console.log('DATA========>',name);
+	//console.log('DATA========>',name);
 	return result;
 }
 

@@ -1,5 +1,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+let dotenv = require('dotenv');
+dotenv.config();
+
+const IPERIODO = process.env.IPERIODO;
+console.log(IPERIODO);
 module.exports = {
 	documenttype: {
 		query: `SELECT * FROM MaeTipDocumento`,
@@ -194,7 +199,7 @@ module.exports = {
 		}
 	},
 	period: {
-		query: `SELECT * FROM TabPeriodo`,
+		query: `SELECT * FROM TabPeriodo where iPeriodo="${IPERIODO}"`,
 		transform : {
 			code: 'iCodPeriodo',
 			name:'iPeriodo',
@@ -236,7 +241,7 @@ module.exports = {
 			documenttypeId: 'documenttype'
 		}
 	},
-	product: {
+	/*product: {
 		query: `SELECT * FROM MaeTipAlimento`,
 		transform : {
 			code: 'iTipAlimentoID',
@@ -256,7 +261,7 @@ module.exports = {
 				updatedAt:Date
 			}
 		}
-	},
+	},*/
 	ubigeo: {
 		query: `SELECT * FROM MaeUbigeo`,
 		transform : {
@@ -289,7 +294,7 @@ module.exports = {
 		}
 	},
 	committee: {
-		query: `SELECT * FROM TabComite`,
+		query: `SELECT * FROM TabComite where iPeriodo="${IPERIODO}"`,
 		transform : {
 			code: 'iCodComite',
 			name: 'vNomComite',
@@ -330,7 +335,7 @@ module.exports = {
 				populatedCenter: Number,
 				populatedCenterName: String,
 				addresstypeId: {type: Schema.Types.ObjectId, ref: 'addresstype'},
-				periodId:{type: Schema.Types.ObjectId, ref: 'period'},
+				periodId:String,
 				govlocalId:{type: Schema.Types.ObjectId, ref: 'govlocal'},
 				socialprogramId:{type: Schema.Types.ObjectId, ref: 'programsocial'},
 				urbancoreId:{type: Schema.Types.ObjectId, ref: 'urbancore'},
@@ -365,7 +370,7 @@ module.exports = {
 		}
 	}, 
 	partner: {
-		query: `SELECT * FROM TabSocio`,
+		query: `SELECT * FROM TabSocio where iPeriodo="${IPERIODO}"`,
 		transform : {
 			code: 'iCodSocio',
 			periodId:'iPeriodo',
@@ -396,7 +401,7 @@ module.exports = {
 			plural: 'partner',
 			schema: {
 				code: String,
-				periodId: {type: Schema.Types.ObjectId, ref: 'period'},
+				periodId: String,
 				committeeId: {type: Schema.Types.ObjectId, ref: 'committee'},		
 				benefittypeId:  {type: Schema.Types.ObjectId, ref: 'benefittype'},
 				addresstypeId:{type: Schema.Types.ObjectId, ref: 'addresstype'},
@@ -432,7 +437,7 @@ module.exports = {
 		}
 	}, 
 	beneficiary: {
-		query: `SELECT * FROM TabBeneficiario`,
+		query: `SELECT * FROM TabBeneficiario where iPeriodo="${IPERIODO}"`,
 		transform : {
 			code: 'iCodBenf',
 			periodId:'iPeriodo',
@@ -457,7 +462,7 @@ module.exports = {
 			plural: 'beneficiary',
 			schema: {
 				code: String,
-				periodId: {type: Schema.Types.ObjectId, ref: 'period'},
+				periodId: String,
 				committeeId: {type: Schema.Types.ObjectId, ref: 'committee'},
 				partnerId: {type: Schema.Types.ObjectId, ref: 'partner'},
 				relationshipId: {type: Schema.Types.ObjectId, ref: 'relationship'},
